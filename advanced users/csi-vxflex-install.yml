@@ -35,8 +35,8 @@
         regexp: '{{item.From}}'
         line: '{{item.To}}'
       with_items:
-        - { From: 'username: bm90X3RoZV91c2VybmFtZQ==', To: '    username: YWRtaW4=' }
-        - { From: 'password: bm90X3RoZV9wYXNzd29yZA==', To: '    password: U2NhbGVpbzEyMw==' }
+        - { From: '  username: bm90X3RoZV91c2VybmFtZQ==', To: '  username: bm90X3RoZV91c2VybmFtZQ==' }
+        - { From: '  password: bm90X3RoZV9wYXNzd29yZA==', To: '  password: bm90X3RoZV9wYXNzd29yZA==' }
     
     - name: apply secret to system
       become: yes
@@ -55,10 +55,10 @@
         regexp: '{{item.From}}'
         line: '{{item.To}}'
       with_items:
-        - { From: '# systemName: systemname', To: 'systemName: PowerFlex-SantaClara' }
-        - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.213.121.40' }
-        - { From: '# storagePool: sp', To: 'storagePool: SP-MG-1' }
-        - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 10.172.1.11,20.172.1.11,10.172.1.12,20.172.1.12' }
+        - { From: '# systemName: systemname', To: 'systemName: PowerFlex' }
+        - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
+        - { From: '# storagePool: sp', To: 'storagePool: SP1' }
+        - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4' }
      
     - name: copy verify kubernetes file
       copy:
