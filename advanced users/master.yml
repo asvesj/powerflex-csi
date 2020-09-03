@@ -51,7 +51,7 @@
        name: /scaleio/EMC-ScaleIO-sdc-3.5-0.468.el7.x86_64.rpm
        state: present
       environment:
-       MDM_IP: "10.172.1.11,20.172.1.11,10.172.1.12,20.172.1.12"
+       MDM_IP: "1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4"
        
 - hosts: all
   become: yes
