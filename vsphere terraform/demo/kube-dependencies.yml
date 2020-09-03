@@ -1,0 +1,114 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: latest
+
+    - name: Install device-mapper-persistent-data
+      yum:
+        name: device-mapper-persistent-data
+        state: latest
+
+    - name: Install lvm2
+      yum:
+        name: lvm2
+        state: latest
+
+    - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docer-ce.repo
+      become: yes
+
+    - name: Install Docker
+      package:
+        name: docker-ce-18.09.9,docker-ce-cli-18.09.9
+        state: latest
+      become: yes
+
+    - name: Install containerd.io
+      package:
+        name: containerd.io
+        state: latest
+      become: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes
+      
+    - name: configure docker service
+      lineinfile:
+       path: /etc/systemd/system/multi-user.target.wants/docker.service
+       insertafter: 'KillMode=process'
+       line: 'MountFlags=shared'
+    
+    - name: copy systemd script
+      copy:
+        src: /root/demo/systemd.sh
+        dest: /root/systemd.sh 
+        mode: '0755'
+        
+    - name: change cgroups to systemd
+      shell: /root/systemd.sh
+
+    - name: disable SELinux
+      command: setenforce 0
+
+    - name: disable SELinux on reboot
+      selinux:
+        state: disabled
+ 
+    - name: reboot all hosts
+      reboot:
+
+    - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
+      sysctl:
+       name: net.bridge.bridge-nf-call-ip6tables
+       value: '1'
+       state: present
+
+    - name: ensure net.bridge.bridge-nf-call-iptables is set to 1
+      sysctl:
+       name: net.bridge.bridge-nf-call-iptables
+       value: '1'
+       state: present
+
+    - name: add Kubernetes' YUM repository
+      yum_repository:
+       name: Kubernetes
+       description: Kubernetes YUM repository
+       baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+       gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+       gpgcheck: yes
+
+    - name: install kubelet
+      yum:
+        name: kubelet-1.16.0
+        state: present
+        update_cache: true
+
+    - name: install kubeadm
+      yum:
+        name: kubeadm-1.16.0
+        state: present
+
+    - name: start kubelet
+      service:
+        name: kubelet
+        enabled: yes
+        state: started
+
+- hosts: master
+  become: yes
+  tasks:
+   - name: install kubectl
+     yum:
+        name: kubectl-1.16.0
+        state: present
+        allow_downgrade: yes
+

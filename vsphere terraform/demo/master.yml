@@ -1,0 +1,101 @@
+#rememebr to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
+- hosts: master
+  become: yes
+  tasks:    
+    - name: copy config file to master
+      copy:
+        src: /root/demo/config.yaml
+        dest: /root/config.yaml
+    
+    - name: initialize the cluster
+      shell: kubeadm init --config config.yaml
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+      register: result
+      until: result.stdout.find("Your Kubernetes control-plane has initialized successfully!") != -1
+      retries: 1
+      delay: 30
+
+    - name: create temp directory
+      file:
+        path: /home/jono/.ansible/tmp
+        state: directory
+        mode: '0777'
+        recurse: yes
+        owner: jono
+    
+    - name: create .kube directory
+      file:
+        path: /home/jono/.kube
+        state: directory
+        mode: '0777'
+        recurse: yes
+        owner: jono
+        
+    - name: copy admin.conf to user's kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/jono/.kube/config
+        remote_src: yes
+        owner: jono
+  
+    - name: install Pod network
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml  >> pod_network_setup.txt
+      args:
+        chdir: /home/jono
+        creates: pod_network_setup.txt
+        
+    - name: get join command
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: set join command
+      set_fact:
+        join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+
+- hosts: workers
+  become: yes
+  tasks:
+    - name: join cluster
+      shell: "{{ hostvars['master'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
+      args:
+        chdir: $HOME
+        creates: node_joined.txt
+      
+    - name: install sdc on Worker nodes
+      yum:
+# make sure you have copied the binary into your template vm
+       name: /scaleio/EMC-ScaleIO-sdc-3.5-0.468.el7.x86_64.rpm
+       state: present
+      environment:
+       MDM_IP: "1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4"
+       
+- hosts: all
+  become: yes
+  tasks:
+    - name: configure config.yaml
+      blockinfile:
+       path: /var/lib/kubelet/config.yaml
+       insertafter: 'volumeStatsAggPeriod: 1m0s'
+       block: | 
+         VolumeSnapshotDataSource: true
+         CSINodeInfo: true
+         CSIDriverRegistry: true 
+         BlockVolume: true
+         CSIBlockVolume: true
+         
+    - name: configure kubeadm-conf
+      lineinfile:
+        path: /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+        regexp: 'Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"'
+        line: 'Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrapkubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --feature-gates=VolumeSnapshotDataSource=true,CSINodeInfo=true,CSIDriverRegistry=true,BlockVolume=true,CSIBlockVolume=true"'
+         
+    - name: reload deamon and restart service
+      systemd:
+         state: restarted
+         daemon_reload: yes
+         name: kubelet

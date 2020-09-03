@@ -1,0 +1,75 @@
+#rememebr to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
+- hosts: master
+  become: yes
+  tasks: 
+    - name: copy get_helm
+      copy:
+        src: /root/demo/get_helm.sh
+        dest: /root/get_helm.sh
+        mode: '0755'
+        
+    - name: run get_helm.sh
+      shell: /root/get_helm.sh 
+    
+    - name: git clone csi-vxflex
+      git:
+        repo: https://github.com/dell/csi-vxflexos
+        dest: /home/jono/csi-vxflex/
+        accept_hostkey: yes
+        key_file: /home/jono/.ssh/id_rsa
+      become: yes
+      become_user: jono
+           
+    - name: create vxflexos namespace
+      become: yes
+      become_user: jono
+      shell: kubectl create namespace vxflexos
+      
+#you need to modify the secret based on your existing PowerFlex cluster. Type this command to change the username/password to base64: "echo -n 'USERNAME/PASSWORD' | base64"
+    - name: modify secret.yaml
+      lineinfile:
+        path: /home/jono/csi-vxflex/helm/secret.yaml
+        regexp: '{{item.From}}'
+        line: '{{item.To}}'
+      with_items:
+        - { From: '  username: bm90X3RoZV91c2VybmFtZQ==', To: '  username: bm90X3RoZV91c2VybmFtZQ==' }
+        - { From: '  password: bm90X3RoZV9wYXNzd29yZA==', To: '  password: bm90X3RoZV9wYXNzd29yZA==' }
+    
+    - name: apply secret to system
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f /home/jono/csi-vxflex/helm/secret.yaml 
+
+    - name: copy 'myvalues.yaml' file
+      copy:
+        src: /home/jono/csi-vxflex/helm/csi-vxflexos/values.yaml
+        dest: /home/jono/csi-vxflex/helm/myvalues.yaml
+        remote_src: yes
+  
+    - name: modify 'myvalues.yaml' file
+      lineinfile:
+        path: /home/jono/csi-vxflex/helm/myvalues.yaml
+        regexp: '{{item.From}}'
+        line: '{{item.To}}'
+#here you change the below paramters based on your existing PowerFlex system
+      with_items:
+        - { From: '# systemName: systemname', To: 'systemName: PowerFlex' }
+        - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
+        - { From: '# storagePool: sp', To: 'storagePool: SP1' }
+        - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1.,2.2.2.2,3.3.3.3,4.4.4.4' }
+     
+    - name: copy verify kubernetes file
+      copy:
+        src: /root/demo/verify.kubernetes
+        dest: /home/jono/csi-vxflex/helm/verify.kubernetes
+        mode: '0755' 
+        owner: jono 
+    
+    - name: run verify 
+      become: yes
+      become_user: jono
+      shell: ./verify.kubernetes
+      args:
+        chdir: /home/jono/csi-vxflex/helm
+
+#once you have verified that kubernetes is configured properly, go to the /csi-vxflex/helm/folder and run './install.vxflexos'.

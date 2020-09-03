@@ -1,0 +1,81 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: create 'jono' user
+# when changing the name of the user, make sure you replace 'jono' with your username in other parts of the file as well
+      user:
+        name: jono
+        append: yes
+        state: present
+        createhome: yes
+        shell: /bin/bash
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+# change the password 'jono' of your choice
+        password: "{{ 'jono' | password_hash('sha512','A512') }}"
+        update_password: on_create
+
+    - name: allow 'jono' to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'jono ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'        
+      
+    - name: Stop and disable firewalld
+      service:
+       name: firewalld
+       state: stopped
+       enabled: False
+    
+    - name: set SElinux to permissive
+      selinux:
+        policy: targeted
+        state: permissive
+
+    - name: Disable SWAP
+      command: swapoff -a
+      become: true
+
+    - name: Remove fstab entry
+      replace:
+        path: /etc/fstab
+        regexp: '^(\s*)([^#\n]+\s+)(\w+\s+)swap(\s+.*)$'
+        replace: '#\1\2\3swap\4'
+        backup: yes
+ 
+    - name: install sshpass on all hosts
+      yum:
+        name: sshpass
+        state: present
+    
+    - name: copy ssh script
+      copy:
+        src: /root/demo/copy-ssh.sh
+        dest: /root/copy-ssh.sh
+        mode: '0755'
+    
+    - name: execute ssh script to pass user=root authorized keys to remote hosts
+      script: copy-ssh.sh 
+      args:
+        chdir: /root
+    
+    - name: copy jono ssh script
+      copy:
+        src: /root/demo/jono-copy-ssh.sh
+        dest: /home/jono/jono-copy-ssh.sh
+        mode: '0755'
+    
+    - name: execute jono ssh script to pass user=jono authorized keys to remote hosts
+      become: yes
+      become_user: jono
+      script: jono-copy-ssh.sh 
+      args:
+        chdir: /home/jono
+        
+    - name: modify local ssh config file to modify StrictHostKeyChecking
+      lineinfile:
+        path: /etc/ssh/ssh_config
+        regexp: '#   StrictHostKeyChecking ask'
+        line: '    StrictHostKeyChecking no'
+
