@@ -69,3 +69,8 @@ Once you have completed the above steps then all you need are the following file
 4.	verify.kubernetes
 5.	get_helm.sh
 6.	config.yaml
+
+## Rancher
+
+To get Rancher up run the following command: docker run -d --restart=unless-stopped   -p 80:80 -p 443:443   rancher/rancher:latest
+To login, go to your browser and enter the IP address of the Rancher host: https://HOST IP:443
