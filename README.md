@@ -69,4 +69,4 @@ This demo assumes the existence of the following:
 <br>a.	helm uninstall cassandra-1xxxxxxxx
 <br>b.	This will go ahead and delete the pods but not the pvc so you’ll have to manually delete them <br>This will change with the release of Helm 4 (currently running Helm 3)
 <br>c.	To delete the pvc run ‘kubectl delete pvc data-cassandra-1xxxxxxxx’ <br>
-19.	When you are finished with the demo return to the command prompt and run terraform destroy -auto-approve <br>This will destroy all your VMs but you’ll have to manually remove the SDC’s in the PowerFlex GUI
+19.	When you are finished with the demo return to the command prompt and run terraform destroy -auto-approve <br>This will destroy all your VMs that were provisioned earlier.
