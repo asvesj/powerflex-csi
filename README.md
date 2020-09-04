@@ -27,7 +27,7 @@ This demo assumes the existence of the following:
 <br> c. ‘initial.yml’ 
 <br>   - change the user from ‘jono’ to a username of your choice
 <br>   - when changing the username, make sure you change other parts of the file as well, eg. “home/jono/” -> “/home/USERNAME/”
-<br>   - change the password from ‘jono’ to a password of your choice. <br>
+<br>   - change the password from ‘jono’ to a password of your choice <br>
 <br> d. ‘copy-ssh.sh’
 <br>   - change the password of the root user and change the IPs
 <br>   - this is so the Kubernetes Master host can communicate with the Kubernetes Workers hosts <br>
@@ -39,17 +39,17 @@ This demo assumes the existence of the following:
 <br>   - change the directory name as well
 <br>   - under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location <br>
 <br> g.	‘csi-vxflex-install.yml’
-<br>   - make sure you change all ‘jono’ references to your username. 
+<br>   - make sure you change all ‘jono’ references to your username
 <br>   - change the directory name as well
 <br>   - when modifying ‘secret.yaml’ you need to change the username and password to base64 <br>To do that run this command: echo -n USERNAME | base64 and echo -n PASSWORD | base64 and replace the output. <br>
 <br>  h. ‘myvalues.yaml’ 
-<br>   - replace the existing PowerFlex parameters with your PowerFlex system. <br>
+<br>   - replace the existing PowerFlex parameters with your PowerFlex system <br>
 
-5.	Zip all the files under the /demo/ directory named demo.zip.
-6.	Run ‘terraform init’ so it will download the right provider to execute the code.
+5.	Zip all the files under the /demo/ directory named demo.zip
+6.	Run ‘terraform init’ so it will download the right provider to execute the code
 7.	If you want to test your Terraform code you can run ‘terraform plan’ and if there any errors, it will tell you what you need to do to correct them.
-8.	When ready run ‘terraform apply -auto-approve’ and Terraform will build the VMs and upload the demo.zip file to the Rancher host.
-9.	Once you have unzipped the demo.zip file, change to the demo folder and run ‘sh startup.sh’.
+8.	When ready run ‘terraform apply -auto-approve’ and Terraform will build the VMs and upload the demo.zip file to the Rancher host
+9.	Once you have unzipped the demo.zip file, change to the demo folder and run ‘sh startup.sh’
 10.	When that is complete, you can run the ansible playbooks individually or you can combine all the playbooks under one yml file <br>To run all the playbooks, execute the following: ‘ansible-playbook -i hosts deployment.yml’
 11.	If the playbook has successfully finished, next step is to log in to the Kubernetes Master host <br>Switch from root to your user <br>Go to the /csi-vxflex/helm/ directory and run ‘./install.vxflex’ 
 12.	Once the plugin is installed, next step is to create a Cassandra pod
@@ -69,4 +69,4 @@ This demo assumes the existence of the following:
 <br>a.	helm uninstall cassandra-1xxxxxxxx
 <br>b.	This will go ahead and delete the pods but not the pvc so you’ll have to manually delete them <br>This will change with the release of Helm 4 (currently running Helm 3)
 <br>c.	To delete the pvc run ‘kubectl delete pvc data-cassandra-1xxxxxxxx’ <br>
-19.	When you are finished the demo return to the command prompt and run terraform destroy -auto-approve <br>This will destroy all your VMs but you’ll have to manually remove the SDC’s in the PowerFlex GUI.
+19.	When you are finished with the demo return to the command prompt and run terraform destroy -auto-approve <br>This will destroy all your VMs but you’ll have to manually remove the SDC’s in the PowerFlex GUI
