@@ -8,8 +8,9 @@ This demo is designed to show how you can use multiple automation tools to build
 ## Requirements
 
 This demo assumes the existence of the following:
-<br> •	Dell Technologies PowerFlex
-<br> •	VMware vSphere environment
+<br> •	Dell Technologies PowerFlex 3.x, 3.5.x
+<br> •	VMware vSphere environment 6.5, 6.7
+<br> •	CentOS 7.5, 7.6, 7.7
 
 
 ## Instructions
