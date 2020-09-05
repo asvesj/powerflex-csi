@@ -84,5 +84,15 @@ To login, go to your browser and enter the IP address of the Rancher host: https
 3. Modify the main.tf file that reflects your current vSphere environment, eg. datacenter name, VM template name, datastore name, network IPs, etc<br>
 
 4. The files that you need to modify are below:<br>
+a. 'master.yml'
+- make sure you change all 'jono' references to your username
+- change the directory name as well
+- under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location
 
+b. 'csi-vxflex-install.yml'
+- make sure you change all 'jono' references to your username
+- change the directory name as well
+- when modifying 'secret.yaml' you need to change the username and password to base64
+To do that run this command: echo -n USERNAME | base64 and echo -n PASSWORD | base64 and replace the output
+- Under the 'myvalues.yaml' section replace the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc
 
