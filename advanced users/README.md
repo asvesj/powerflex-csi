@@ -83,7 +83,7 @@ To login, go to your browser and enter the IP address of the Rancher host: https
 
 3. Modify the main.tf file that reflects your current vSphere environment, eg. datacenter name, VM template name, datastore name, network IPs, etc<br>
 
-4. The files that you need to modify are below:<br>
+4. The files that you need to modify are below:
 <br>a. 'hosts'
 <br>    - enter the IP addresses of the Kubernetes Master and Worker hosts<br>
 <br>b. 'master.yml'
