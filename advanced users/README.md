@@ -75,6 +75,12 @@ Once you have completed the above steps then all you need are the following file
 To get Rancher up run the following command: docker run -d --restart=unless-stopped   -p 80:80 -p 443:443   rancher/rancher:latest <br>
 To login, go to your browser and enter the IP address of the Rancher host: https://HOSTIP:443
 
-## Steps
+## Instructions
 
-1. 
+1. Download the advanced user files into your local machine<br>
+
+2. Modify the var.tf file with your vSphere credentials<br>
+
+3. Modify the main.tf file that reflects your current vSphere environment, eg. datacenter name, VM template name, datastore name, network IPs, etc<br>
+
+4. 
