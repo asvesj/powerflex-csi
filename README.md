@@ -17,7 +17,7 @@ This demo assumes the existence of the following:
 
 1.	Download all the files into your local machine
 2.	Modify the var.tf file with your vSphere credentials
-3.	Modify the main.tf file that reflects your current vSphere environment
+3.	Modify the main.tf file that reflects your current vSphere environment, eg. Datacenter name, VM template name, datastore name, network IPs, etc.
 4.	The files that you need to modify are below:
 <br> a.	‘startup.sh’
 <br>   - modify the password of the root user and change the IPs
