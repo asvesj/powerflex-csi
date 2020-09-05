@@ -90,7 +90,6 @@ To login, go to your browser and enter the IP address of the Rancher host: https
 <br>    - make sure you change all 'jono' references to your username
 <br>    - change the directory name as well
 <br>    - under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location<br>
-
 <br>c. 'csi-vxflex-install.yml'
 <br>    - make sure you change all 'jono' references to your username
 <br>    - change the directory name as well
