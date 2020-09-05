@@ -42,7 +42,7 @@ This demo assumes the existence of the following:
 <br>   - make sure you change all 'jono' references to your username
 <br>   - change the directory name as well
 <br>   - when modifying 'secret.yaml' you need to change the username and password to base64. To do that run this command: echo -n USERNAME | base64 and echo -n PASSWORD | base64 and replace the output
-<br>   - under the 'myvalues.yaml' setion replace the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
+<br>   - under the 'myvalues.yaml' section replace the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
 
 5.	Zip all the files under the /demo/ directory named demo.zip
 6.	Run 'terraform init' so it will download the vsphere provider to execute the code
