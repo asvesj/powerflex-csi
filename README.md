@@ -7,11 +7,11 @@ This demo is designed to show how you can use multiple automation tools to build
 
 To view the YouTube videos please click on the below links: <br>
 
-<br> Part 1: https://youtu.be/rQm0CPMffPw <br>
+<br>      • Part 1: https://youtu.be/rQm0CPMffPw <br>
 
-<br> Part 2: https://youtu.be/O4_NIITqPiY <br>
+<br>      • Part 2: https://youtu.be/O4_NIITqPiY <br>
 
-<br> Part 3: https://youtu.be/yYf1dslhja4 <br>
+<br>      • Part 3: https://youtu.be/yYf1dslhja4 <br>
 
 ## Requirements
 
