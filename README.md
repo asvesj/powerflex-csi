@@ -5,8 +5,7 @@ Terraform-Ansible-Rancher-PowerFlex-CSI-Kubernetes-Cassandra Demo
 
 This demo is designed to show how you can use multiple automation tools to build a Kubernetes environment from scratch. It will modify the Kubernetes system to allow integration with the PowerFlex CSI plugin and will create persistent volumes for a Cassandra database. Lastly, you can use Rancher to monitor and manage the entire Kubernetes cluster. <br>
 
-To view the YouTube videos please click on the below links: <br>
-
+To view the YouTube videos please click on the below links:
 <br>  • Part 1: https://youtu.be/rQm0CPMffPw <br>
 <br>  • Part 2: https://youtu.be/O4_NIITqPiY <br>
 <br>  • Part 3: https://youtu.be/yYf1dslhja4 <br>
