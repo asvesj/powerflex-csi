@@ -66,9 +66,8 @@ Once you have completed the above steps then all you need are the following file
 1.	master.yml
 2.	csi-vxflex-install.yml
 3.	hosts
-4.	verify.sh
-5.	get_helm.sh
-6.	config.yaml
+4.	get_helm.sh
+5.	config.yaml
 
 ## Instructions
 
