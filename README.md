@@ -54,7 +54,7 @@ This demo assumes the existence of the following:
 7.	If you want to test your Terraform code you can run 'terraform plan' and if there any errors, it will tell you what you need to do to correct them
 8.	When ready run ‘terraform apply -auto-approve’ and Terraform will build the VMs and upload the demo.zip file to the Rancher host
 9.	Once you have unzipped the demo.zip file, change to the demo folder and run 'sh startup.sh'
-10.	When that is complete, you can run the ansible playbooks individually or you can combine all the playbooks under one yml file <br>To run all the playbooks, execute the following: 'ansible-playbook -i hosts deployment.yml'
+10.	When that is complete, you can run the ansible playbooks individually or you can combine all the playbooks under one yml file. To run all the playbooks under one file execute the following: 'ansible-playbook -i hosts deployment.yml'<br>
 11.	If the playbook has successfully finished, next step is to log in to the Kubernetes Master host; switch to your user and run this command: <br>cd ../dell-csi-helm-installer && ./csi-install.sh --namespace vxflexos --values ../helm/myvalues.yaml --skip-verify-node --snapshot-crd<br> 
 12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host (you'll have to do this twice as i'm not sure how to correct that error, could be a bug?)    
 13.	Once the plugin is installed, next step is to create a Cassandra pod
