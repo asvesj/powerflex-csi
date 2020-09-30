@@ -58,7 +58,7 @@ For those users who are more advanced you can preload most of the software in yo
 <br>repo_gpgcheck=1
 <br>gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 <br>EOF
-<br>yum install -y kubeadm-1.16.0 kubelet-1.16.0 kubectl-1.16.0 kubernetes-cni-0.8.6-0
+<br>yum install -y kubeadm-1.19.2 kubelet-1.19.2 kubectl-1.19.2 kubernetes-cni-0.8.7-0
 
 ## Files Needed
 
@@ -66,7 +66,7 @@ Once you have completed the above steps then all you need are the following file
 1.	master.yml
 2.	csi-vxflex-install.yml
 3.	hosts
-4.	verify.kubernetes
+4.	verify.sh
 5.	get_helm.sh
 6.	config.yaml
 
