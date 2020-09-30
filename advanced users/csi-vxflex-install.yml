@@ -60,18 +60,4 @@
         - { From: '# storagePool: sp', To: 'storagePool: SP1' }
         - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4' }
      
-    - name: copy verify kubernetes file
-      copy:
-        src: /root/demo/verify.kubernetes
-        dest: /home/jono/csi-vxflex/helm/verify.kubernetes
-        mode: '0755' 
-        owner: jono 
-    
-    - name: run verify 
-      become: yes
-      become_user: jono
-      shell: ./verify.kubernetes
-      args:
-        chdir: /home/jono/csi-vxflex/helm
-   
-
+#Once that is complete run this command on your Kubernetes Master host: cd ../dell-csi-helm-installer && ./csi-install.sh --namespace vxflexos --values ../helm/myvalues.yaml --skip-verify-node
