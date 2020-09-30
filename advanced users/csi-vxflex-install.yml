@@ -60,4 +60,3 @@
         - { From: '# storagePool: sp', To: 'storagePool: SP1' }
         - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4' }
      
-#Once that is complete run this command on your Kubernetes Master host: cd ../dell-csi-helm-installer && ./csi-install.sh --namespace vxflexos --values ../helm/myvalues.yaml --skip-verify-node
