@@ -21,7 +21,7 @@
       file:
         path: /home/jono/.ansible/tmp
         state: directory
-        mode: '0755'
+        mode: '0700'
         recurse: yes
         owner: jono
     
@@ -29,7 +29,7 @@
       file:
         path: /home/jono/.kube
         state: directory
-        mode: '0755'
+        mode: '0700'
         recurse: yes
         owner: jono
         
