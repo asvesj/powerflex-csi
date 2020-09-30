@@ -60,16 +60,9 @@
      
     - name: copy verify kubernetes file
       copy:
-        src: /root/demo/verify.kubernetes
-        dest: /home/jono/csi-vxflex/helm/verify.kubernetes
+        src: /root/demo/verify.sh
+        dest: /home/jono/csi-vxflex/dell-csi-helm-installer/verify.sh
         mode: '0755' 
         owner: jono 
-    
-    - name: run verify 
-      become: yes
-      become_user: jono
-      shell: ./verify.kubernetes
-      args:
-        chdir: /home/jono/csi-vxflex/helm
 
-#once you have verified that kubernetes is configured properly, go to the /csi-vxflex/helm/folder and run './install.vxflexos'.
+#Once that is complete go to the /csi-vxflex/dell-csi-helm-installer/ folder and run './csi-install.sh' on your Kubernetes Master host.
