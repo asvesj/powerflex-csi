@@ -51,18 +51,11 @@
         path: /home/jono/csi-vxflex/helm/myvalues.yaml
         regexp: '{{item.From}}'
         line: '{{item.To}}'
-#here you change the below paramters based on your existing PowerFlex system
+#Here you change the below paramters based on your existing PowerFlex system
       with_items:
         - { From: '# systemName: systemname', To: 'systemName: PowerFlex' }
         - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
         - { From: '# storagePool: sp', To: 'storagePool: SP1' }
         - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1.,2.2.2.2,3.3.3.3,4.4.4.4' }
      
-    - name: copy verify kubernetes file
-      copy:
-        src: /root/demo/verify.sh
-        dest: /home/jono/csi-vxflex/dell-csi-helm-installer/verify.sh
-        mode: '0755' 
-        owner: jono 
-
-#Once that is complete go to the /csi-vxflex/dell-csi-helm-installer/ folder and run './csi-install.sh' on your Kubernetes Master host.
+#Once that is complete run this command on your Kubernetes Master host: cd ../dell-csi-helm-installer && ./csi-install.sh --namespace vxflexos --values ../helm/myvalues.yaml --skip-verify-node
