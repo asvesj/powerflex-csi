@@ -66,6 +66,9 @@ Once you have completed the above steps then all you need are the following file
 3.	hosts
 4.	get_helm.sh
 5.	config.yaml
+6.  rbac-controller.yaml
+7.  snapshot-controller.yaml
+8.  csi-snapshotter.yaml
 
 ## Instructions
 
