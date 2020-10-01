@@ -37,6 +37,7 @@
       copy:
         src: /etc/kubernetes/admin.conf
         dest: /home/jono/.kube/config
+        mode: '0700'
         remote_src: yes
         owner: jono
   
