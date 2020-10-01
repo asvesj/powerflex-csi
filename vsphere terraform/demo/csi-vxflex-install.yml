@@ -1,4 +1,4 @@
-#rememebr to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
+#remember to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
 - hosts: master
   become: yes
   tasks: 
@@ -6,7 +6,7 @@
       copy:
         src: /root/demo/get_helm.sh
         dest: /root/get_helm.sh
-        mode: '0755'
+        mode: '0700'
         
     - name: run get_helm.sh
       shell: /root/get_helm.sh 
@@ -58,7 +58,7 @@
         - { From: '# storagePool: sp', To: 'storagePool: SP1' }
         - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1.,2.2.2.2,3.3.3.3,4.4.4.4' }
     
-    - name: copy snapshot controller to master
+    - name: copy snapshot-controller to master
       copy:
         src: /root/demo/snapshot-controller.yaml
         dest: /home/jono/snapshot-controller.yaml 
@@ -87,7 +87,7 @@
       become_user: jono
       shell: kubectl apply -f /home/jono/rbac-controller.yaml
       
-    - name: install snapshot controller
+    - name: install snapshot-controller
       become: yes
       become_user: jono
       shell: kubectl apply -f /home/jono/snapshot-controller.yaml  
