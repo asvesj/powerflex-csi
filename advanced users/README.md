@@ -38,10 +38,8 @@ For those users who are more advanced you can preload most of the software in yo
 <br>  ]
 <br>}
 <br>EOF
-
 <br>  - mkdir -p /etc/systemd/system/docker.service.d
 <br>  - systemctl daemon-reload && systemctl restart docker <br>
-
 16.	Letting iptables see bridged traffic:
 <br>cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 <br>net.bridge.bridge-nf-call-ip6tables = 1
