@@ -1,4 +1,4 @@
-#rememebr to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
+#remember to change all jono variables with your user. For example change the '/home/jono' directory of that of your user '/home/<USERNAME>'
 - hosts: master
   become: yes
   tasks:    
