@@ -10,10 +10,6 @@ data "vsphere_compute_cluster" "cluster" {
     name          = "PowerFlex Cluster"
     datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
-data "vsphere_resource_pool" "pool" {
-  name          = "PowerFlex Pool"
-  datacenter_id = "${data.vsphere_datacenter.dc.id}"
-}
 data "vsphere_network" "network" {
   name          = "VM Network"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
@@ -34,7 +30,6 @@ data "vsphere_virtual_machine" "template" {
 resource "vsphere_virtual_machine" "rancher" {
     name             = "Rancher-190"
     folder           = "Kubernetes"
-    resource_pool_id = "${data.vsphere_compute_cluster.cluster.resource_pool_id}"
     datastore_id     = "${data.vsphere_datastore.datastore.id}"
     firmware         = "${data.vsphere_virtual_machine.template.firmware}"
     num_cpus 	     = 8
@@ -83,7 +78,6 @@ resource "vsphere_virtual_machine" "rancher" {
 resource "vsphere_virtual_machine" "kubernetes_master" {
     name             = "K8s-Master-11"
     folder           = "Kubernetes"
-    resource_pool_id = "${data.vsphere_compute_cluster.cluster.resource_pool_id}"
     datastore_id     = "${data.vsphere_datastore.datastore.id}"
     firmware         = "${data.vsphere_virtual_machine.template.firmware}"
     num_cpus 	     = 8
@@ -137,7 +131,6 @@ resource "vsphere_virtual_machine" "kubernetes_worker" {
     count	     = "3"
     name             = "K8s-Worker-19${count.index + 2}"
     folder           = "Kubernetes"
-    resource_pool_id = "${data.vsphere_compute_cluster.cluster.resource_pool_id}"
     datastore_id     = "${data.vsphere_datastore.datastore.id}"
     firmware         = "${data.vsphere_virtual_machine.template.firmware}"
     num_cpus 		 = 8
