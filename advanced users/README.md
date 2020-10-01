@@ -87,7 +87,7 @@ Once you have completed the above steps then all you need are the following file
 <br>c. 'csi-vxflex-install.yml'
 <br>    - make sure you change all 'jono' references to your username
 <br>    - change the directory name as well
-<br>    - when modifying 'secret.yaml' you need to change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64 <br> and replace the output
+<br>    - when modifying 'secret.yaml' you need to change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64 <br>
 <br>    - Under the 'myvalues.yaml' section replace the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
 
 5.	Zip all the files under the /demo/ directory named demo.zip
