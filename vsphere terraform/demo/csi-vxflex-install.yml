@@ -81,12 +81,7 @@
         mode: '0700'
       become: yes
       become_user: jono  
-    
-    - name: install rbac-controller
-      become: yes
-      become_user: jono
-      shell: kubectl apply -f /home/jono/rbac-controller.yaml
-      
+       
     - name: install snapshot-controller
       become: yes
       become_user: jono
@@ -96,4 +91,8 @@
       become: yes
       become_user: jono
       shell: kubectl apply -f /home/jono/csi-snapshotter.yaml
-      
+   
+    - name: install rbac-controller
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f /home/jono/rbac-controller.yaml
