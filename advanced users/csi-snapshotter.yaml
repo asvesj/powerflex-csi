@@ -1,0 +1,75 @@
+# This YAML file shows how to deploy the CSI snapshotter together
+# with the hostpath CSI driver. It depends on the RBAC rules
+# from rbac-csi-snapshotter.yaml and rbac-external-provisioner.yaml.
+#
+# Because external-snapshotter and external-provisioner get
+# deployed in the same pod, we have to merge the permissions
+# for the provisioner into the service account. This is not
+# necessary when deploying separately.
+
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-snapshotter
+spec:
+  serviceName: "csi-snapshotter"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-snapshotter
+  template:
+    metadata:
+      labels:
+        app: csi-snapshotter
+    spec:
+      serviceAccount: csi-snapshotter
+      containers:
+        - name: csi-provisioner
+          image: k8s.gcr.io/sig-storage/csi-provisioner:v2.0.2
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: csi-snapshotter
+          image: quay.io/k8scsi/csi-snapshotter:v2.1.1
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--leader-election=false"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: hostpath
+          image: k8s.gcr.io/sig-storage/hostpathplugin:v1.4.0
+          args:
+            - "--v=5"
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--nodeid=$(KUBE_NODE_NAME)"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+      volumes:
+        - name: socket-dir
+          emptyDir:
