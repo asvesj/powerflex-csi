@@ -59,4 +59,43 @@
         - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
         - { From: '# storagePool: sp', To: 'storagePool: SP1' }
         - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4' }
-     
+    
+    - name: copy snapshot controller to master
+      copy:
+        src: /root/demo/snapshot-controller.yaml
+        dest: /home/jono/snapshot-controller.yaml 
+        mode: '0700'
+      become: yes
+      become_user: jono
+    
+    - name: copy csi-snapshotter to master
+      copy:
+        src: /root/demo/csi-snapshotter.yaml
+        dest: /home/jono/csi-snapshotter.yaml 
+        mode: '0700'
+      become: yes
+      become_user: jono
+      
+    - name: copy rbac-controller to master
+      copy:
+        src: /root/demo/rbac-controller.yaml
+        dest: /home/jono/rbac-controller.yaml 
+        mode: '0700'
+      become: yes
+      become_user: jono  
+    
+    - name: install rbac-controller
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f /home/jono/rbac-controller.yaml
+      
+    - name: install snapshot controller
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f /home/jono/snapshot-controller.yaml  
+    
+    - name: install csi-snapshotter
+      become: yes
+      become_user: jono
+      shell: kubectl apply -f /home/jono/csi-snapshotter.yaml
+    
