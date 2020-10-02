@@ -43,11 +43,10 @@ This demo assumes the existence of the following:
 <br>   - make sure you change all 'jono' references to your username 
 <br>   - change the directory name as well
 <br>   - under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location <br>
-<br> g.	'csi-vxflex-install.yml'
-<br>   - make sure you change all 'jono' references to your username
-<br>   - change the directory name as well
-<br>   - when modifying 'secret.yaml' you need to change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64
-<br>   - under the 'myvalues.yaml' section replace the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
+<br> g.	'secret.yaml'
+<br>   - change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64
+<br> h. 'myvalues.yaml'
+<br>   - change the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
 
 5.	Zip all the files under the /demo/ directory named demo.zip
 6.	Run 'terraform init' so it will download the vsphere provider to execute the code
