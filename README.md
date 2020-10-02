@@ -44,7 +44,7 @@ This demo assumes the existence of the following:
 <br>   - change the directory name as well
 <br>   - under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location <br>
 <br> g.	'secret.yaml'
-<br>   - change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64
+<br>   - change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64 <br>
 <br> h. 'myvalues.yaml'
 <br>   - change the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
 
