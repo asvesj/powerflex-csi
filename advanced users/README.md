@@ -90,8 +90,6 @@ Once you have completed the above steps then all you need are the following file
 <br>    - change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64 <br>
 <br>d. 'myvalues.yaml'
 <br>    - change the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
-<br>e.  'rbac-controller.yaml', 'snapshot-controller.yaml' and 'csi-snapshotter.yaml'
-<br>    - modify the namespace in each yaml file with the same namespace name for the CSI plugin install <br>
 
 5.	Zip all the files under the /demo/ directory named demo.zip
 6.	Run 'terraform init' so it will download the vsphere provider to execute the code
