@@ -17,7 +17,7 @@ This demo assumes the existence of the following:
 <br> •	Dell Technologies PowerFlex 3.x, 3.5.x
 <br> •	VMware vSphere environment 6.5, 6.7
 <br> •	CentOS 7.5, 7.6, 7.7
-<br> •	Terraform v0.12
+<br> •	Terraform 0.12
 
 
 ## Instructions
