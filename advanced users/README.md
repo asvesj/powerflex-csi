@@ -101,7 +101,7 @@ Once you have completed the above steps then all you need are the following file
 12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host (you'll have to do this twice as i'm not sure how to correct that error, could be a bug?)    
 13.	Once the plugin is installed, next step is to create a Cassandra pod
 14.	Execute the following commands on the Kubernetes Master host as your user:
-<br>a.	helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+<br>a.	helm repo add incubator https://charts.helm.sh/incubator
 <br>b.	helm repo update
 <br>c.	helm install incubator/cassandra --generate-name <br>
 15.	Next you can check the deployment in Kubernetes by running the following command (it will take about 10 minutes for the containers to be spun up on the Worker hosts so be patient)
