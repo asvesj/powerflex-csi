@@ -14,4 +14,4 @@ sed -i '/host_key_checking/s/^#//g' /etc/ansible/ansible.cfg
 #install rancher
 curl -k https://releases.rancher.com/install-docker/18.09.9.sh | sh
 systemctl enable docker
-docker run -d --restart=unless-stopped   -p 80:80 -p 443:443   rancher/rancher:latest
+docker run -d --privileged --restart=unless-stopped   -p 80:80 -p 443:443   rancher/rancher:latest
