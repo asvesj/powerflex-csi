@@ -51,12 +51,17 @@
         path: /home/jono/csi-vxflex/helm/myvalues.yaml
         regexp: '{{item.From}}'
         line: '{{item.To}}'
-#Here you change the below paramters based on your existing PowerFlex system
+#Here you change the below parameters based on your existing PowerFlex system
       with_items:
-        - { From: '# systemName: systemname', To: 'systemName: PowerFlex' }
-        - { From: '# restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
-        - { From: '# storagePool: sp', To: 'storagePool: SP1' }
-        - { From: 'mdmIP: 192.168.1.1', To: 'mdmIP: 1.1.1.1.,2.2.2.2,3.3.3.3,4.4.4.4' }
+        - { From: 'systemName: systemname', To: 'systemName: PowerFlex' }
+        - { From: 'restGateway: https://123.0.0.1', To: 'restGateway: https://10.10.10.1' }
+        - { From: 'storagePool: sp', To: 'storagePool: SP1' }
+    
+    - name: modify 'mdmIP'
+      replace:
+        path: /home/jono/csi-vxflex/helm/myvalues.yaml
+        regexp: 'mdmIP:\n  - 0.0.0.0\n  - 0.0.0.0\n'
+        replace: 'mdmIP: 1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4'
     
     - name: copy snapshot-controller to master
       copy:
