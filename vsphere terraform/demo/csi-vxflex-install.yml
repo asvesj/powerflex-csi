@@ -101,3 +101,8 @@
       become: yes
       become_user: jono
       shell: kubectl apply -f /home/jono/rbac-controller.yaml
+      
+    - name: install dummy sdc-repo-secret
+      become: yes
+      become_user: jono
+      shell: kubectl create -f /home/jono/csi-vxflex/helm/sdc-repo-secret.yaml
