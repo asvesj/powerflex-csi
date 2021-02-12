@@ -70,6 +70,7 @@ Once you have completed the above steps then all you need are the following file
 7.  snapshot-controller.yaml
 8.  csi-snapshotter.yaml
 9.  deployment.yml
+10. rbac-config.yaml
 
 ## Instructions
 
