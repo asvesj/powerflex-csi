@@ -106,21 +106,3 @@
       become: yes
       become_user: jono
       shell: kubectl create -f /home/jono/csi-vxflex/helm/sdc-repo-secret.yaml
-      
-    - name: copy rbac-config to master
-      copy:
-        src: /root/demo/rbac-config.yaml
-        dest: /home/jono/rbac-config.yaml 
-        mode: '0700'
-      become: yes
-      become_user: jono
-
-    - name: install rbac-config
-      become: yes
-      become_user: jono
-      shell: kubectl create -f /home/jono/csi-vxflex/helm/rbac-config.yaml
-      
-    - name: update tiller
-      become: yes
-      become_user: jono
-      shell: helm init --upgrade --service-account-tiller
