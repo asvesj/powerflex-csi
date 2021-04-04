@@ -102,19 +102,19 @@ Once you have completed the above steps then all you need are the following file
 12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host (you'll have to do this twice as i'm not sure how to correct that error, could be a bug?)    
 13.	Once the plugin is installed, next step is to create a Cassandra pod
 14.	Execute the following commands on the Kubernetes Master host as your user:
-<br>a.	helm repo add incubator https://charts.helm.sh/incubator
+<br>a.	helm repo add bitnami https://charts.bitnami.com/bitnami
 <br>b.	helm repo update
-<br>c.	helm install incubator/cassandra --generate-name <br>
+<br>c.	helm install cassandra-db-test bitnami/cassandra <br>
 15.	Next you can check the deployment in Kubernetes by running the following command (it will take about 10 minutes for the containers to be spun up on the Worker hosts so be patient)
 <br>a.	kubectl get pods -o wide <br>
 16.	To check for persistent volumes run the following:
 <br>a.	kubectl get pvc <br>
 17.	To delete a pod run the following:
-<br>a.	kubectl delete pod cassandra-1xxxxxxxx <br>
+<br>a.	kubectl delete pod cassandra-db-test <br>
 18.	Check if the container is getting spun up again by running:
 <br>a.	kubectl get pods -o wide <br>
 19.	When finished with the pod run the following:
-<br>a.	helm uninstall cassandra-1xxxxxxxx
+<br>a.	helm uninstall cassandra-db-test
 <br>b.	This will go ahead and delete the pods but not the pvc so you'll have to manually delete them <br>This will change with the release of Helm 4 (currently running Helm 3)
-<br>c.	To delete the pvc run ‘kubectl delete pvc data-cassandra-1xxxxxxxx’ <br>
+<br>c.	To delete the pvc run ‘kubectl delete pvc data-cassandra-db-test-0’ <br>
 20.	When you are finished with the demo return to the command prompt and run 'terraform destroy -auto-approve' <br>This will destroy all your VMs that were provisioned earlier.
