@@ -99,12 +99,11 @@ Once you have completed the above steps then all you need are the following file
 9.	Once you have unzipped the demo.zip file, change to the demo folder, install Rancher by running: <br>'docker run -d --restart=unless-stopped -p 80:80 -p 443:443   rancher/rancher:latest' <br>To login, go to your browser and enter the IP address of the Rancher host: https://HOSTIP:443
 10.	When that is complete, you can run the ansible playbooks individually or you can combine all the playbooks under one yml file <br>To run all the playbooks execute the following command: 'ansible-playbook -i hosts deployment.yml'
 11.	When the csi-vxflex-install playbook has successfully finished, next step is to log in to the Kubernetes Master host <br>Switch from root to your user and run this command in the csi-vxflexos/dell-csi-helm-installer/ folder:<br> ./csi-install.sh --namespace=vxflexos --values=../helm/myvalues.yaml --skip-verify-node --snapshot-crd<br>
-12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host (you'll have to do this twice as i'm not sure how to correct that error, could be a bug?)    
+12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host 
 13.	Once the plugin is installed, next step is to create a Cassandra pod
 14.	Execute the following commands on the Kubernetes Master host as your user:
 <br>a.	helm repo add bitnami https://charts.bitnami.com/bitnami
-<br>b.	helm repo update
-<br>c.	helm install cassandra-db-test bitnami/cassandra <br>
+<br>b.	helm install cassandra-db-test bitnami/cassandra <br>
 15.	Next you can check the deployment in Kubernetes by running the following command (it will take about 10 minutes for the containers to be spun up on the Worker hosts so be patient)
 <br>a.	kubectl get pods -o wide <br>
 16.	To check for persistent volumes run the following:
