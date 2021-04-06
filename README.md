@@ -61,8 +61,7 @@ This demo assumes the existence of the following:
 13.	Once the plugin is installed, next step is to create a Cassandra pod
 14.	Execute the following commands on the Kubernetes Master host as your user:
 <br>a.	helm repo add bitnami https://charts.bitnami.com/bitnami
-<br>b.	helm repo update
-<br>c.	helm install cassandra-db-test bitnami/cassandra <br>
+<br>b.	helm install cassandra-db-test bitnami/cassandra <br>
 15.	Next you can check the deployment in Kubernetes by running the following command (it will take about 10 minutes for the containers to be spun up on the Worker hosts so be patient)
 <br>a.	kubectl get pods -o wide <br>
 16.	To check for persistent volumes run the following:
