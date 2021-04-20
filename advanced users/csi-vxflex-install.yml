@@ -24,106 +24,12 @@
       become_user: jono
       shell: kubectl create namespace vxflexos
       
-#    - name: modify secret.yaml
-#      lineinfile:
-#        path: /home/jono/csi-vxflex/helm/secret.yaml
-#        regexp: '{{item.From}}'
-#        line: '{{item.To}}'
-#      with_items:
-#        - { From: '  username: bm90X3RoZV91c2VybmFtZQ==', To: '  username: YWRtaW4=' }
-#        - { From: '  password: bm90X3RoZV9wYXNzd29yZA==', To: '  password: U2NhbGVpbzEyMw==' }
-     
-#    - name: apply secret to system
-#      become: yes
-#      become_user: jono
-#      shell: kubectl apply -f /home/jono/csi-vxflex/helm/secret.yaml 
-
     - name: copy 'myvalues.yaml' file
       copy:
         src: /home/jono/csi-vxflex/helm/csi-vxflexos/values.yaml
         dest: /home/jono/csi-vxflex/helm/myvalues.yaml
         remote_src: yes
   
-#    - name: modify 'myvalues.yaml' file
-#      lineinfile:
-#        path: /home/jono/csi-vxflex/helm/myvalues.yaml
-#        regexp: '{{item.From}}'
-#        line: '{{item.To}}'
-#      with_items:
-#        - { From: 'systemName: systemname', To: 'systemName: PowerFlex-SantaClara' }
-#        - { From: 'restGateway: https://123.0.0.1', To: 'restGateway: https://10.213.121.40' }
-#        - { From: 'storagePool: sp', To: 'storagePool: SP-MG-1' }
-    
-#    - name: modify 'mdmIP'
-#      replace:
-#        path: /home/jono/csi-vxflex/helm/myvalues.yaml
-#        regexp: 'mdmIP:\n  - 0.0.0.0\n  - 0.0.0.0\n'
-#        replace: 'mdmIP: 10.172.1.11,20.172.1.11,10.172.1.12,20.172.1.12'    
-    
-#    - name: modify 'snapshot.storage.k8s.io_volumesnapshotclasses.yaml' file
-#      lineinfile:
-#        path: /home/jono/csi-vxflex/dell-csi-helm-installer/beta-snapshot-crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
-#        regexp: '{{item.From}}'
-#        line: '{{item.To}}'
-#      with_items:
-#        - { From: 'apiVersion: apiextensions.k8s.io/v1beta1', To: 'apiVersion: apiextensions.k8s.io/v1' }
-    
-#    - name: modify 'snapshot.storage.k8s.io_volumesnapshotcontents.yaml' file
-#      lineinfile:
-#        path: /home/jono/csi-vxflex/dell-csi-helm-installer/beta-snapshot-crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
-#        regexp: '{{item.From}}'
-#        line: '{{item.To}}'
-#      with_items:
-#        - { From: 'apiVersion: apiextensions.k8s.io/v1beta1', To: 'apiVersion: apiextensions.k8s.io/v1' }
-    
-#    - name: modify 'snapshot.storage.k8s.io_volumesnapshots.yaml' file
-#      lineinfile:
-#        path: /home/jono/csi-vxflex/dell-csi-helm-installer/beta-snapshot-crd/snapshot.storage.k8s.io_volumesnapshots.yaml
-#        regexp: '{{item.From}}'
-#        line: '{{item.To}}'
-#      with_items:
-#        - { From: 'apiVersion: apiextensions.k8s.io/v1beta1', To: 'apiVersion: apiextensions.k8s.io/v1' }
-      
-#    - name: copy rbac-csi-snapshotter to master
-#      copy:
-#        src: /root/demo/rbac-csi-snapshotter.yaml
-#        dest: /home/jono/rbac-csi-snapshotter.yaml 
-#        mode: '0700'
-#      become: yes
-#      become_user: jono
-    
-#    - name: copy setup-snapshot-controller to master
-#      copy:
-#        src: /root/demo/setup-snapshot-controller.yaml
-#        dest: /home/jono/setup-snapshot-controller.yaml 
-#        mode: '0700'
-#      become: yes
-#      become_user: jono
-      
-#    - name: copy rbac-snapshot-controller to master
-#      copy:
-#        src: /root/demo/rbac-snapshot-controller.yaml
-#        dest: /home/jono/rbac-snapshot-controller.yaml 
-#        mode: '0700'
-#      become: yes
-#      become_user: jono  
-
-#    - name: copy setup-csi-snapshotter to master
-#      copy:
-#        src: /root/demo/setup-csi-snapshotter.yaml
-#        dest: /home/jono/setup-csi-snapshotter.yaml 
-#        mode: '0700'
-#      become: yes
-#      become_user: jono
-      
-#    - name: copy rbac-external-provisioner to master
-#      copy:
-#        src: /root/demo/rbac-external-provisioner.yaml
-#        dest: /home/jono/rbac-external-provisioner.yaml 
-#        mode: '0700'
-#      become: yes
-#      become_user: jono  
-    
     - name: copy setup-snapshot-controller
       get_url:
         url: https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v4.0.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
