@@ -85,9 +85,7 @@ Once you have completed the above steps then all you need are the following file
 <br>    - make sure you change all 'jono' references to your username
 <br>    - change the directory name as well
 <br>    - under the PowerFlex SDC installation section make sure you enter your MDM IPs and verified the binary location<br>
-<br>c. 'secret.yaml'
-<br>    - change the username and password to base64. To do that run this command: <br> echo -n USERNAME | base64 <br> echo -n PASSWORD | base64 <br>
-<br>d. 'myvalues.yaml'
+<br>c. 'config.json'
 <br>    - change the existing PowerFlex parameters with your PowerFlex system, eg. MDM IPs, storage pool name, etc <br>
 
 5.	Zip all the files under the /demo/ directory named demo.zip
@@ -96,7 +94,7 @@ Once you have completed the above steps then all you need are the following file
 8.	When ready run ‘terraform apply -auto-approve’ and Terraform will build the VMs and upload the demo.zip file to the Rancher host
 9.	Once you have unzipped the demo.zip file, change to the demo folder, install Rancher by running: <br>'docker run -d --restart=unless-stopped -p 80:80 -p 443:443   rancher/rancher:latest' <br>To login, go to your browser and enter the IP address of the Rancher host: https://HOSTIP:443
 10.	When that is complete, you can run the ansible playbooks individually or you can combine all the playbooks under one yml file <br>To run all the playbooks execute the following command: 'ansible-playbook -i hosts deployment.yml'
-11.	When the csi-vxflex-install playbook has successfully finished, next step is to log in to the Kubernetes Master host <br>Switch from root to your user and run this command in the csi-vxflexos/dell-csi-helm-installer/ folder:<br> ./csi-install.sh --namespace=vxflexos --values=../helm/myvalues.yaml --skip-verify-node --snapshot-crd<br>
+11.	When the csi-vxflex-install playbook has successfully finished, next step is to log in to the Kubernetes Master host <br>Switch from root to your user and run this command in the csi-vxflexos/dell-csi-helm-installer/ folder:<br> ./csi-install.sh --namespace=vxflexos --values=../helm/myvalues.yaml --skip-verify-node <br>
 12. To add the Kubernetes cluster to Rancher, click 'Add Cluster' -> 'Import an existing cluster' -> give it a name under 'Cluster Name' -> 'hit Create' -> copy the last curl command to your Kubernetes Master host 
 13.	Once the plugin is installed, next step is to create a Cassandra pod
 14.	Execute the following commands on the Kubernetes Master host as your user:
