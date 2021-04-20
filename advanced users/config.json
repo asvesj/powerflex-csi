@@ -1,11 +1,11 @@
 [
     {
-        "username": "admin",
-        "password": "Scaleio123",
-        "systemID": "PowerFlex-SantaClara",
-        "endpoint": "https://10.213.121.40",
+        "username": "<USERNAME>",
+        "password": "<PASSWORD>",
+        "systemID": "<SYSTEM_NAME>",
+        "endpoint": "<GATEWAY_IP>",
         "insecure": true,
         "isDefault": true,
-        "mdm": "10.172.1.254,20.172.1.254"
+        "mdm": "1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4"
     }
 ]
