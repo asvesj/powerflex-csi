@@ -56,7 +56,7 @@ For those users who are more advanced you can preload most of the software in yo
 <br>repo_gpgcheck=1
 <br>gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 <br>EOF
-<br>yum install -y kubeadm-1.19.2 kubelet-1.19.2 kubectl-1.19.2 kubernetes-cni-0.8.7-0
+<br>yum install -y kubeadm-1.20.0 kubelet-1.20.0 kubectl-1.20.0
 
 ## Files Needed
 
@@ -66,11 +66,9 @@ Once you have completed the above steps then all you need are the following file
 3.	hosts
 4.	get_helm.sh
 5.	config.yaml
-6.  rbac-controller.yaml
-7.  snapshot-controller.yaml
-8.  csi-snapshotter.yaml
-9.  deployment.yml
-10. rbac-config.yaml
+6.  config.json
+7.  storageclass.yaml
+8.  deployment.yml
 
 ## Instructions
 
